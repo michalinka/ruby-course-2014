@@ -7,6 +7,15 @@ class Article
     @dislikes = 0
     @created_at = Time.now()
   end
+  def title
+    @title
+  end
+  def content
+    @content
+  end
+  def author
+    @author
+  end
   def like!
     @likes += 1
   end
@@ -32,5 +41,3 @@ class Article
     words | words
   end
 end
-
-
