@@ -5,7 +5,7 @@ class Article
     @created_at = Time.now()
   end
 
-  attr_accessor :title, :content, :author
+  attr_accessor :title, :content, :author, :likes, :dislikes, :created_at
   def like!
     @likes += 1
   end
