@@ -1,2 +1,5 @@
 require 'test/unit'
-Dir["C:\Users\misia\Documents\GitHub\ruby-course-2014\spec\unit\*_spec.rb")].each {|file| load file }
+
+
+my_root = File.dirname(File.absolute_path(__FILE__))
+Dir.glob(my_root + '/unit/*_spec.rb') {|file| require file}
