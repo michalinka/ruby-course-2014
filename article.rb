@@ -35,6 +35,6 @@ class Article
   end
 
   def distinct_words
-    words | words
+    words.uniq
   end
 end
