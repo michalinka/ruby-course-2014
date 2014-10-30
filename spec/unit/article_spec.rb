@@ -1,59 +1,43 @@
-require 'test/unit'
+ require 'test/unit'
 
 class TestArticle < Test::Unit::TestCase
 
+  def setup
+    @test = Article.new("title","Content of the article. Content content content content.","author")
+    3.times{@test.like!}
+    5.times{@test.dislike!}
+  end
+
   def test_like!
-    assert_block ("incorrect liking") do
-      test = Article.new("x","y","z")
-      3.times{test.like!}
-      test.likes == 3
-    end
+    assert_equal(3, @test.likes, "incorrect liking")
   end
 
   def test_dislike!
-    assert_block ("incorrect disliking") do
-      test = Article.new("x","y","z")
-      3.times{test.dislike!}
-      test.dislikes == 3
-    end
+    assert_equal(@test.dislikes,5,"incorrect disliking")
   end
 
-  def test_positive_votes!
-    assert_block ("wrong number of positive votes") do
-      test = Article.new("x","y","z")
-      3.times{test.like!}
-      5.times{test.dislike!}
-      test.positive_votes == -2
-    end
+  def test_positive_votes
+    assert_equal(@test.positive_votes,-2,"wrong number of positive votes")
   end
 
-  def test_votes!
-    assert_block ("wrong number of votes") do
-      test = Article.new("x","y","z")
-      3.times{test.like!}
-      5.times{test.dislike!}
-      test.votes == 8
-    end
+  def test_votes
+    assert_equal(@test.votes,8,"wrong number of votes")
   end
 
   def test_shortened_to
-    test = Article.new("x", "Nam strzelac nie kazano", "z")
-    assert_equal(test.shortened_to(15), "Nam strzelac...", "incorrect shortening")
+    assert_equal(@test.shortened_to(15), "Content of t...", "incorrect shortening")
   end
 
   def test_include?
-    test = Article.new("x", "Nam strzelac nie kazano", "z")
-    assert(test.include?("nie"),"include? doesn't work'")
+    assert(@test.include?("article"),"include? doesn't work'")
   end
 
   def test_words
-    test = Article.new("x", "Nam strzelac nie kazano", "z")
-    assert_equal(test.words, ["Nam", "strzelac", "nie", "kazano"], "words doesn't work'")
+    assert_equal(@test.words, ["Content", "of", "the", "article.", "Content", "content", "content", "content."], "words doesn't work")
   end
 
   def test_distinct_words
-    test = Article.new("x", "Nam strzelac nie kazano nie nie", "z")
-    assert_equal(test.distinct_words, ["Nam", "strzelac", "nie", "kazano"], "distinct_words doesn't work'")
+    assert_equal(@test.distinct_words, ["Content", "of", "the", "article.", "content", "content."], "distinct_words doesn't work")
   end
 
 end
