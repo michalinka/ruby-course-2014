@@ -25,15 +25,11 @@ class ArticleManager
   end
 
   def include?(pattern)
-    y=false
-    @articles.each{|x| if x.include?(pattern) then y=true end}
-    y
+    @articles.any? {|x| x.include?(pattern)}
   end
 
   def authors
-    list_of_authors = []
-    @articles.each{|x| list_of_authors += [x.author]}
-    list_of_authors | list_of_authors
+    @articles.map{|x| x.author}.uniq
   end
 
   def number_of_authors
