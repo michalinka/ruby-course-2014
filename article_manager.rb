@@ -49,4 +49,9 @@ class ArticleManager
     end
     s
   end
+
+  def load_articles(path)
+    Dir.foreach(path) {|file| if file != '.' && file != '..' then @articles += [ArticleFilesystem.read_article(path + '\\' + file)] end}
+  end
 end
+
