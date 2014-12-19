@@ -13,5 +13,13 @@ class ArticleFilesystem
       f = File.open(ARTICLES_FOLDER + self.file_name(art),"w")
       f.puts self.file_describe(art)
     end
-end
 
+    def self.read_article(path)
+      f = File.open(path)
+      elements = f.gets.split("|")
+      art = Article.new(elements[1],elements[2],elements[0])
+      elements[3].to_i.times {art.like!}
+      elements[4].to_i.times {art.dislike!}
+      art
+    end
+end
